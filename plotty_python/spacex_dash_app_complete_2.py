@@ -16,14 +16,14 @@ launch_sites = spacex_df['Launch Site']
 app = dash.Dash(__name__)
 
 # Create an app layout
-app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
+app.layout = html.Div(children=[html.H1('Dashboard: SpaceX Launch Records',
                                         style={'textAlign': 'center', 'color': '#503D36',
                                                'font-size': 40}),
                                 # TASK 1: Add a dropdown list to enable Launch Site selection
                                 # The default select value is for ALL sites
                                  dcc.Dropdown(id='site-dropdown', 
                                 options=[
-                                    {'label': 'All Sites', 'value':'ALL'},
+                                    {'label': 'All Launch Sites', 'value':'ALL'},
                                     {'label':'CCAFS LC-40', 'value':'CCAFS LC-40'},
                                     {'label':'CCAFS SLC-40', 'value':'CCAFS SLC-40'},
                                     {'label':'KSC LC-39A', 'value':'KSC LC-39A'},
@@ -56,18 +56,19 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
 
 # TASK 2:
 # Add a callback function for `site-dropdown` as input, `success-pie-chart` as output
+
 @app.callback(Output(component_id='success-pie-chart', component_property='figure'),
             Input(component_id='site-dropdown',component_property='value'))
 
 def pie(site_dropdown):
     if site_dropdown == 'ALL':
-        title_pie = f"Sucess Launches for site {site_dropdown}"
+        title_pie = f"Success Launches for site {site_dropdown}"
         fig = px.pie(spacex_df, values='class', name='Launch Site', title=title_pie)
         return fig
     else:
         filtered_DD = spacex_df[spacex_df['Launch Site'] == site_dropdown]
         filtered_LS = filtered_DD.groupby(['Launch Site', 'class']).size().reset_index(name='class count')
-        title_pie = f"Sucess Launches for site {site_dropdown}"
+        title_pie = f"Success Launches for site {site_dropdown}"
         fig = px.pie(filtered_LS,values='class count', names='class', title=title_pie)
         return fig
 
