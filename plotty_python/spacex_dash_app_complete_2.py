@@ -23,7 +23,7 @@ app.layout = html.Div(children=[html.H1('Dashboard: SpaceX Launch Records',
                                 # The default select value is for ALL sites
                                  dcc.Dropdown(id='site-dropdown', 
                                 options=[
-                                    {'label': 'All Launch Sites', 'value':'ALL'},
+                                    {'label': 'ALL', 'value':'ALL'},
                                     {'label':'CCAFS LC-40', 'value':'CCAFS LC-40'},
                                     {'label':'CCAFS SLC-40', 'value':'CCAFS SLC-40'},
                                     {'label':'KSC LC-39A', 'value':'KSC LC-39A'},
@@ -45,8 +45,8 @@ app.layout = html.Div(children=[html.H1('Dashboard: SpaceX Launch Records',
                                 # TASK 3: Add a slider to select payload range
                                 #dcc.RangeSlider(id='payload-slider',...)
                                 dcc.RangeSlider(id = 'payload-slider',
-                                                min = 0, max = 10000, step = 1000,
-                                                marks = {0: '0', 100: '100'},
+                                                min = 0, max = 10000, step = 2000,
+                                                marks={0: '0', 2000: '2000', 4000: '4000', 6000: '6000', 8000: '8000', 10000: '10000'},
                                                 value = [min_payload, max_payload]),
                                 
 
